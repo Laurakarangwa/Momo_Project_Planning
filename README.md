@@ -6,8 +6,6 @@ Our project is a fullstack application designed to process and analyze MoMo SMS 
 
 
 
-
-
 # Member List 
 1.Honette Marie Ihozo
 2.Vanessa Umwari
