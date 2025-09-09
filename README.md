@@ -13,4 +13,4 @@ Our project is a fullstack application designed to process and analyze MoMo SMS 
 ## Project Resources
 
 - **Task Management:** We are using [GitHub Projects](https://github.com/users/Laurakarangwa/projects/1/views/1) as our primary tool for managing tasks, tracking progress, and organizing workflows.  
-- **System Architecture:** We are designing and maintaining our system architecture diagrams using [draw.io (diagrams.net)](https://app.diagrams.net/).  
+- **System Architecture:** We are designing and maintaining our system architecture diagrams using [draw.io (diagrams.net)]([https://app.diagrams.net/](https://drive.google.com/file/d/11LdOXVNF3nScqXePt6HWnHkXc7IO37vN/view?ts=68c07537)).  
