@@ -16,6 +16,8 @@ Stores cleaned and structured data in a SQLite relational database for reliabili
 
 ## Member List
 
+**Group 12**
+
 1. Honette Marie Ihozo  
 2. Vanessa Umwari  
 3. Laura Karangwa Kwizera  
