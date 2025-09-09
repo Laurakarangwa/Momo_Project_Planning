@@ -2,7 +2,17 @@
 
 ## Project Description
 
-Our project is a fullstack application designed to process and analyze MoMo SMS transaction data provided in XML format. The system extracts raw SMS data, cleans and normalizes key details such as amounts, dates, and phone numbers, then categorizes transactions using simple business rules. The cleaned and structured data is stored in a SQLite relational database for reliability and easy querying.
+This project is a full-stack application built to process and analyze MoMo SMS transaction data in XML format.
+
+## **The system**:
+
+Extracts raw SMS data.
+
+Cleans and normalizes key details such as transaction amounts, dates, and phone numbers.
+
+Categorizes transactions using defined business rules.
+
+Stores cleaned and structured data in a SQLite relational database for reliability and efficient querying.
 
 ## Member List
 
