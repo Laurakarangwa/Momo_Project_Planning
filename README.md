@@ -35,7 +35,7 @@ Diagram stored in /docs/erd_diagram.png.
 
 Core entities: Users, Transactions, Transaction_Categories, and Transaction_Logs.
 
-**Relationships:**
+# **Relationships:**
 
 A User can send/receive many Transactions.
 
@@ -66,9 +66,10 @@ The schema allows efficient querying and supports both analytical and operationa
 │   └── json_schemas.json    # JSON representations of entities
 └── .github/
     └── project-board        # GitHub Projects task tracking
-# **
-Database Schema
-Core Tables**
+    
+## **Database Schema**
+
+**Core Tables**
 
 Users – stores mobile users (senders/receivers).
 
@@ -92,7 +93,7 @@ SELECT u.full_name, t.amount, t.status
 FROM Transactions t
 JOIN Users u ON t.sender_id = u.user_id;
 
-**Data Accuracy and Security Rules
+## **Data Accuracy and Security Rules
 **
 CHECK constraints enforce valid amounts and status values.
 
@@ -102,7 +103,7 @@ Foreign keys ensure relational integrity.
 
 Timestamps provide auditability of user creation, transactions, and logs.
 
-**Next Steps
+## **Next Steps
 **
 Implement database queries into the backend application.
 
