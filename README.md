@@ -14,13 +14,6 @@ Categorizes transactions using defined business rules.
 
 Stores cleaned and structured data in a SQLite relational database for reliability and efficient querying.
 
-## Member List
-
-**Group 12**
-
-1. Honette Marie Ihozo  
-2. Vanessa Umwari  
-3. Laura Karangwa Kwizera  
 
 ## Project Resources
 
@@ -67,49 +60,98 @@ The schema allows efficient querying and supports both analytical and operationa
 └── .github/
     └── project-board        # GitHub Projects task tracking
     
-## **Database Schema**
 
-**Core Tables**
 
-Users – stores mobile users (senders/receivers).
 
-Transaction_Categories – defines transaction types (Payments, Transfers, etc.).
 
-Transactions – records details of each SMS transaction.
+1. **Overview**
 
-Transaction_Logs – tracks parsing, validation, and processing steps.
+This document outlines the relational database design and implementation for processing MoMo SMS transaction data. The system extracts, normalizes, categorizes, and stores transaction records in a SQLite database, with full support for auditability, scalability, and API serialization via JSON. 
 
--- Select successful transactions
-SELECT * FROM Transactions WHERE status = 'SUCCESS';
+The design centers around the transaction as the core entity, linked to users (senders/receivers), multiple categories via a junction table, and system logs for traceability. Raw SMS payloads are preserved for compliance and debugging. 
+ 
+2. **Key Design Decisions**
 
--- Update transaction status
-UPDATE Transactions SET status = 'SUCCESS' WHERE transaction_id = 5;
+    Junction Table (transaction_category_map):
+    Allows one transaction to belong to multiple categories (e.g., “P2P Transfer” and “Promotional Campaign”). This supports flexible business reporting without schema changes. 
 
--- Delete failed transactions
-DELETE FROM Transactions WHERE status = 'FAILED';
+    Raw Payload Storage:
+    Each transaction includes the original SMS or XML content. This ensures traceability, debugging capability, and regulatory compliance. 
 
--- Join users with their transactions
-SELECT u.full_name, t.amount, t.status
-FROM Transactions t
-JOIN Users u ON t.sender_id = u.user_id;
+    Telecom-Standard Field Names:
+    Uses msisdn (phone number), external_txn_id (unique reference), and transaction_ts (timestamp) — aligning with industry practices. 
 
-## **Data Accuracy and Security Rules
-**
-CHECK constraints enforce valid amounts and status values.
+    Auditability via System Logs:
+    Every processing step, success, or failure is recorded in the system_logs table with timestamp and severity level. 
 
-UNIQUE constraints maintain distinct user phone numbers.
+    Scalable Structure:
+    Designed to easily accommodate future features — such as agent networks, transaction fees, location tracking, or fraud detection — without requiring structural changes. 
+     
 
-Foreign keys ensure relational integrity.
+ 
+3. **Repository Structure** 
 
-Timestamps provide auditability of user creation, transactions, and logs.
+The project files are organized as follows: 
 
-## **Next Steps
-**
-Implement database queries into the backend application.
+    README.md — This documentation file
+    Docs/ERD_diagram.pdf — Entity Relationship Diagram
+    database/database_setup.sql — Complete SQLite schema with constraints and sample data
+    examples/json_schemas.json — Sample JSON responses for API integration
+     
 
-Connect XML parsing scripts to database insertion functions.
+ 
+4. **Sample Query** 
 
-Test the database with larger sample SMS datasets.
+The following SQL query retrieves all transactions for a given user, whether they were the sender or receiver: 
 
-Prepare APIs for external data access and reporting.
+SELECT t.transaction_id, t.amount, t.currency, t.status, t.transaction_ts
+FROM transactions t
+JOIN users u ON t.sender_user_id = u.user_id OR t.receiver_user_id = u.user_id
+WHERE u.msisdn = '+250788123456'
+ORDER BY t.transaction_ts DESC; 
+ 
+5. **Data Integrity and Security Rules**
+
+    Amount values are validated to be >= 0
+    MSISDN (phone number) and external transaction ID are unique
+    Currency codes are validated to be exactly 3 characters
+    Indexes are created on frequently queried fields: transaction_ts, status, msisdn
+    Foreign key constraints enforce referential integrity
+    All system events are logged for audit purposes
+     
+
+ 
+6. **JSON Serialization** 
+
+The file examples/json_schemas.json contains a sample API response that includes: 
+
+    Sender and receiver user details
+    An array of categories (supporting multiple tags per transaction)
+    An array of system logs
+    The original raw SMS payload
+    ISO 8601 formatted timestamps
+     
+
+This structure is designed for efficient API delivery, minimizing client-side processing and delivering full context in one response. 
+ 
+
+ 
+7. **Submission Checklist**
+
+    ERD diagram included at Docs/ERD_diagram.pdf
+    SQL script provided at database/database_setup.sql
+    JSON examples included at examples/json_schemas.json
+    README.md updated and finalized
+    Scrum board updated with Week 2 completed tasks
+    Team contributions visible through GitHub commit history
+     
+
+ 
+  ## Member List
+
+**Group 12**
+
+1. Honette Marie Ihozo  
+2. Vanessa Umwari  
+3. Laura Karangwa Kwizera  
 
