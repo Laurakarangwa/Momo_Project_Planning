@@ -145,7 +145,6 @@ This structure is designed for efficient API delivery, minimizing client-side pr
     Scrum board updated with Week 2 completed tasks
     Team contributions visible through GitHub commit history
      
-
  
   ## Member List
 
